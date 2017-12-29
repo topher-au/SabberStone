@@ -31,7 +31,7 @@ namespace SabberStoneCore.Actions
 
 				// play block
 				if (c.Game.History)
-					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.PLAY, source.Id, "", 0, target?.Id ?? 0));
+					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.PLAY, source.Id, "", 0, target?.Id ?? 0, chooseOne - 1));
 
 				c.NumCardsPlayedThisTurn++;
 
