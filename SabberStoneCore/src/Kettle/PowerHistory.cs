@@ -150,6 +150,20 @@ namespace SabberStoneCore.Kettle
 			return new PowerHistoryBlockEnd();
 		}
 
+		public static PowerHistoryMetaData MetaData(MetaDataType type, int data, List<int> info)
+		{
+			return new PowerHistoryMetaData
+			{
+				Type = type,
+				Data = data,
+				Info = info
+			};
+		}
+
+		public static PowerHistoryMetaData MetaData(MetaDataType type, int data, int info)
+		{
+			return MetaData(type, data, new List<int> {info});
+		}
 	}
 
 	//message PowerHistory
