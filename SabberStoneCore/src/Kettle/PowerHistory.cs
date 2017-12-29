@@ -133,7 +133,7 @@ namespace SabberStoneCore.Kettle
 			};
 		}
 
-		public static PowerHistoryBlockStart BlockStart(BlockType blockType, int source, string effectCardId, int index, int target)
+		public static PowerHistoryBlockStart BlockStart(BlockType blockType, int source, string effectCardId, int index, int target, int subOption = -1)
 		{
 			return new PowerHistoryBlockStart
 			{
@@ -141,7 +141,8 @@ namespace SabberStoneCore.Kettle
 				Source = source,
 				EffectCardId = effectCardId,
 				Index = index,
-				Target = target
+				Target = target,
+				SubOption = subOption
 			};
 		}
 
@@ -237,21 +238,23 @@ namespace SabberStoneCore.Kettle
 		}
 	}
 
-	//message PowerHistoryStart
-	//{
-	//    required HistoryBlock.Type type = 1;
-	//    required int32 index = 2;
-	//    required int32 source = 3;
-	//    required int32 target = 4;
-	//    optional string effect_card_id = 5;
-	//}
+	// message PowerHistoryStart {
+	//     HistoryBlock.Type type = 1;
+	//     int32 sub_option = 2;
+	//     int32 source = 3;
+	//     int32 target = 4;
+	//     string effect_card_id = 5;
+	//     int32 effect_index = 6;
+	//     int32 trigger_keyword = 7;
+	// }
 	public class PowerHistoryBlockStart : IPowerHistoryEntry
 	{
 		public PowerType PowerType => PowerType.BLOCK_START;
 		public BlockType BlockType { get; set; }
-		public int Index { get; set; } = -1;
+		public int SubOption { get; set; } = -1;
 		public int Source { get; set; }
 		public int Target { get; set; } = 0;
+		public int Index { get; set; } = -1;
 		public string EffectCardId { get; set; } = "";
 
 		public string Print()
