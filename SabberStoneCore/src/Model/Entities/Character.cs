@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Kettle;
 
 namespace SabberStoneCore.Model.Entities
 {
@@ -211,6 +212,10 @@ namespace SabberStoneCore.Model.Entities
 				hero.Armor = hero.Armor < damage ? 0 : hero.Armor - damage;
 			}
 
+			// add history metadata for damage
+			if(Game.History)
+				Game.PowerHistory.Add(PowerHistoryBuilder.MetaData(MetaDataType.DAMAGE, PreDamage, Id));
+
 			// final damage is beeing accumulated
 			Damage += PreDamage;
 
@@ -261,6 +266,11 @@ namespace SabberStoneCore.Model.Entities
 			int amount = Damage > heal ? heal : Damage;
 			if (Game.Logging)
 				Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", $"{this} took healing for {amount}.");
+
+			// add history metadata for healing
+			if(Game.History)
+				Game.PowerHistory.Add(PowerHistoryBuilder.MetaData(MetaDataType.HEALING, amount, Id));
+
 			Damage -= amount;
 		}
 
